@@ -17,7 +17,14 @@ class PostsController < ApplicationController
 	end
 
 	def update
-
+		@post = Post.find(params[:id])
+		respond_to do |format|
+			format.json
+				if @post.update(post_params)
+					render :json => @post
+				end 
+			end 
+		end 
 	end 
 
 
@@ -28,10 +35,10 @@ class PostsController < ApplicationController
 		end 
 	end 
 
+
 	private
 
 	def post_params
 		params.require(:post).permit(:title, :author, :content)
 	end
 
-end

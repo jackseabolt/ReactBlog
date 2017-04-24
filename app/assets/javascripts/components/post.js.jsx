@@ -74,7 +74,7 @@ var Post = React.createClass({
 					<h4>{this.props.post.title}</h4>
 					<h5>{this.props.post.author}</h5>
 					<p>{this.props.post.content}</p>
-					<button className="btn btn-danger spacer" onClick={this.handlePostDelete}>Delete</button>
+					<button className="btn btn-danger" onClick={this.handlePostDelete}>Delete</button>
 					<button className="btn btn-primary spacer" onClick={this.setEditMode}>Edit</button>
 				</div>
 			</div>

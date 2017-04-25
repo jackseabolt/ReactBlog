@@ -17,21 +17,21 @@ class PostsController < ApplicationController
 	end
 
 	def update
-		@post = Post.find(params[:id])
-		respond_to do |format|
-			format.json
-				if @post.update(post_params)
-					render :json => @post
-				end 
-			end 
-		end 
-	end 
+	    @post = Post.find(params[:id])
+	    respond_to do |format|
+	      	format.json do 
+	        	if @post.update(post_params)
+	          		render :json => @post
+	       		end
+	      	end
+	    end
+	 end
 
 
 	def destroy
 		Post.find(params[:id]).destroy
 		respond_to do |format|
-			format.json { render :json =>{}, :status => :no_content }
+			format.json { render :json => {}, :status => :no_content }
 		end 
 	end 
 
@@ -41,4 +41,4 @@ class PostsController < ApplicationController
 	def post_params
 		params.require(:post).permit(:title, :author, :content)
 	end
-
+end

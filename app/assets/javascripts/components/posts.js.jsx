@@ -59,7 +59,7 @@ var Posts = React.createClass({
 				);
 			});
 		return (
-			<div>
+			<div> 
 				<div className="form_container post col-md-8 col-md-push-2">
 					<h4>Create a Post</h4>
 					<br />

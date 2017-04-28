@@ -3,6 +3,16 @@
 		<div class="col-md-8 col-md-push-2">
 			<br />
 		</div>
+		<% if user_signed_in? %> 
 		<%= react_component( "Posts", { posts: @posts }) %> 
+		<% else %> 
+			<% @posts.each do |post| %> 
+				<div class="form_container post col-md-8 col-md-push-2">
+					<h4><%= post.title %> </h4>
+					<h5><%= post.author %></h5>
+					<p><%= post.content %></p>
+				</div>
+			<% end %> 
+		<% end %>
 	</div>
 </div>

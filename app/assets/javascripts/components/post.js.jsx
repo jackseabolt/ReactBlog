@@ -63,7 +63,7 @@ var Post = React.createClass({
 					<div className='form-group'>
 						<input value={this.state.post.content} onChange={this.handleContentChange} type="text"className="form-control" />
 					</div>
-					<button onClick={this.handlePostUpdate} className="btn btn-success">Update</button>
+					<button onClick={this.handlePostUpdate} className="btn btn-primary">Update</button>
 				</div>
 				</div>
 			);

@@ -59,21 +59,34 @@ var Posts = React.createClass({
 				);
 			});
 		return (
-			<div> 
-				<div className="form_container post col-md-8 col-md-push-2">
-					<h4>Create a Post</h4>
-					<br />
-					<div className='form-group'>
-						<input value={this.state.post.title} onChange={this.handleTitleChange} type='text' className='form-control' />
-					</div>
-					<div className='form-group'>
-						<input value={this.state.post.author} onChange={this.handleAuthorChange} type='text' className='form-control' />
-					</div>
-					<div className='form-group'>
-						<input value={this.state.post.content} onChange={this.handleContentChange} type="text"className="form-control" />
-					</div>
-					<button onClick={this.handlePostCreate} className="btn btn-success">Post</button>
-				</div>
+
+			<div>
+
+				<div className="modal fade" id="myModal" role="dialog">
+				    <div className="modal-dialog">
+				      	<div className="modal-content">
+					        <div className="modal-header">
+					          <button type="button" className="close" data-dismiss="modal">&times;</button>
+					          <h4 className="modal-title">Create a Post</h4>
+					        </div>
+					        <div className="modal-body">
+								<div className='form-group'>
+									<input value={this.state.post.title} onChange={this.handleTitleChange} type='text' className='form-control' placeholder="Title" />
+								</div>
+								<div className='form-group'>
+									<input value={this.state.post.author} onChange={this.handleAuthorChange} type='text' className='form-control' placeholder="Author" />
+								</div>
+								<div className='form-group'>
+									<input value={this.state.post.content} onChange={this.handleContentChange} type="text"className="form-control" placeholder="Content" />
+								</div>
+							</div>
+					        <div className="modal-footer">
+					          	<button type="button" onClick={this.handlePostCreate} className="btn btn-primary" data-dismiss="modal">Post</button>
+					        </div>
+				      	</div>
+				    </div>
+			  	</div>
+				
 				{ postBoard }
 				
 			</div>

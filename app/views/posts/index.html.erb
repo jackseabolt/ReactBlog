@@ -8,9 +8,14 @@
 		<% else %> 
 			<% @posts.each do |post| %> 
 				<div class="form_container post col-md-8 col-md-push-2">
-					<h4><%= post.title %> </h4>
-					<h5><%= post.author %></h5>
+					<h3><%= post.title %> </h3>
+					<h4><%= post.author %></h4>
 					<p><%= post.content %></p>
+					<% if post.video %>
+						<div class="embed-responsive embed-responsive-16by9 video">
+		  					<iframe class="embed-responsive-item" src="<%= post.video %>"></iframe>
+						</div>
+					<% end %> 
 				</div>
 			<% end %> 
 		<% end %>

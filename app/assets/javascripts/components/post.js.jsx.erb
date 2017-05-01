@@ -15,6 +15,11 @@ var Post = React.createClass({
 	    newPost.author = e.target.value
 	    this.setState({post: newPost});
   	},
+  	handleVideoChange(e) {
+	    var newPost = this.state.post
+	    newPost.video = e.target.value
+	    this.setState({post: newPost});
+  	},
   	handleContentChange(e) {
 	    var newPost = this.state.post
 	    newPost.content = e.target.value
@@ -61,7 +66,10 @@ var Post = React.createClass({
 						<input value={this.state.post.author} onChange={this.handleAuthorChange} type='text' className='form-control' />
 					</div>
 					<div className='form-group'>
-						<input value={this.state.post.content} onChange={this.handleContentChange} type="text"className="form-control" />
+						<input value={this.state.post.video} onChange={this.handeVideoChange} type="text" onChange={this.handleVideoChange} className="form-control" />
+					</div>
+					<div className='form-group'>
+						<input value={this.state.post.content} onChange={this.handleContentChange} type="text" className="form-control" />
 					</div>
 					<button onClick={this.handlePostUpdate} className="btn btn-primary">Update</button>
 				</div>

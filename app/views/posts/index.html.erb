@@ -4,7 +4,8 @@
 			<br />
 		</div>
 		<% if user_signed_in? %> 
-			<%= react_component( "Posts", { posts: @posts }) %> 
+			<% posts_json = Post.includes(:comments).map { |post| post.as_json.merge({comments: post.comments.as_json}) } %>
+			<%= react_component( "Posts", { posts: posts_json }) %> 
 		<% else %> 
 			<% @posts.each do |post| %> 
 				<div class="form_container post col-md-8 col-md-push-2">

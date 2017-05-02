@@ -1,0 +1,18 @@
+var Comment = React.createClass({
+	getInitialState: function(){
+		return {
+			comment: this.props.comment,
+			created_at: this.props.comment.created_at
+		}
+	},
+	render: function(){
+		return (
+		<div>
+			<p>{this.state.comment.content}</p>
+			<p><i>{this.state.created_at}</i></p>
+			<br />
+
+		</div>
+		);
+	}
+});

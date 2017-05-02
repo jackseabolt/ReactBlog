@@ -1,20 +1,4 @@
 var Comments = React.createClass({
-	handlePostUpdate: function(){
-		var that = this; 
-		$.ajax({
-			method: 'PUT',
-			data: { post: that.state.post },
-			url: '/posts/' + that.state.post.id + '.json',
-			success: function(res) {
-				that.setState({
-					post: res,
-					editMode: false
-				});
-			}
-		});
-	},
-
-
 	render: function() {
 		console.log(this.props.post); 
 

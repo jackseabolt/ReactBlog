@@ -60,16 +60,16 @@ var Post = React.createClass({
 					<h4>Edit Post</h4>
 					<br />
 					<div className='form-group'>
-						<input value={this.state.post.title} onChange={this.handleTitleChange} type='text' className='form-control' />
+						<input value={this.state.post.title} onChange={this.handleTitleChange} type='text' className='form-control' placeholder="Title" />
 					</div>
 					<div className='form-group'>
-						<input value={this.state.post.author} onChange={this.handleAuthorChange} type='text' className='form-control' />
+						<input value={this.state.post.author} onChange={this.handleAuthorChange} type='text' className='form-control' placeholder="Author" />
 					</div>
 					<div className='form-group'>
-						<input value={this.state.post.video} onChange={this.handeVideoChange} type="text" onChange={this.handleVideoChange} className="form-control" />
+						<input value={this.state.post.content} onChange={this.handleContentChange} type="text" className="form-control" placeholder="Content" />
 					</div>
 					<div className='form-group'>
-						<input value={this.state.post.content} onChange={this.handleContentChange} type="text" className="form-control" />
+						<input value={this.state.post.video} onChange={this.handeVideoChange} type="text" onChange={this.handleVideoChange} className="form-control" placeholder="Video URL" />
 					</div>
 					<button onClick={this.handlePostUpdate} className="btn btn-primary">Update</button>
 				</div>

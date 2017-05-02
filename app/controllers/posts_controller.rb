@@ -2,12 +2,13 @@ class PostsController < ApplicationController
 
 	def index
 		@posts = Post.all.order(created_at: :desc)
+		@comment = Comment.new
 	end 
 
 	def show 
 		@post = Post.find(params[:id])
 		@comment = Comment.new
-		@comments = Comment.all 
+		@comments = @post.comments.all.order(created_at: :desc)
 	end 
 
 

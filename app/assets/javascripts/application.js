@@ -18,3 +18,21 @@
 //= require react_ujs
 //= require components
 //= require_tree .
+
+
+
+
+
+
+$(document).on('turbolinks:load', function(){
+
+	$('.comments_view').on('click', function(){
+		$(this).next().slideToggle();
+		if ($(this).value == 'Comments'){
+			$(this).html('Close');
+		} else {
+			$(this).html('Create');
+		}
+	});
+
+})

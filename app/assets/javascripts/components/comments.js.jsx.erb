@@ -1,16 +1,28 @@
 var Comments = React.createClass({
-	getInitialState: function(){
-		return {
-			post: this.props.post,
-			comments: this.props.post.comments
-		}
-	}, 
+	handlePostUpdate: function(){
+		var that = this; 
+		$.ajax({
+			method: 'PUT',
+			data: { post: that.state.post },
+			url: '/posts/' + that.state.post.id + '.json',
+			success: function(res) {
+				that.setState({
+					post: res,
+					editMode: false
+				});
+			}
+		});
+	},
+
+
 	render: function() {
-		var commentBoard = this.state.comments.map(function(comment){
+		console.log(this.props.post); 
+
+		var commentBoard = this.props.post.comments ? this.props.post.comments.map(function(comment){
 				return (
 					<Comment comment={comment} key={comment.id} />
 				);
-			});
+			}):null;
 		return (
 			<div className="comment_container">
 				{ commentBoard }

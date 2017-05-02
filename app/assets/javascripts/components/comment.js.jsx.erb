@@ -1,0 +1,12 @@
+var Comment = React.createClass({
+	getInitialState: function(){
+		return {
+			comment: this.props.comment
+		}
+	},
+	render: function(){
+		return (
+			<p>{this.state.comment.content}</p>
+		);
+	}
+});

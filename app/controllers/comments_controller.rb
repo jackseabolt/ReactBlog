@@ -4,20 +4,26 @@ class CommentsController < ApplicationController
 		@post = Post.find(params[:post_id])
 		@comment = Comment.create(comment_params)
 		@comment.post_id = @post.id
-		if @comment.save 
-			redirect_to post_path(@post)
-		else
-			render 'show'
+		respond_to do |format|
+			format.json do 
+				if @post.save 
+					render json: @comment 
+				end
+			end 
 		end 
 	end 
 
 	def update
 		@comment = Comment.find(params[:id])
-		if @comment.update(comment_params)
-			redirect_to posts_path
-		else
-			redirect_to posts_path
-		end 
+		respond_to do |format|
+			format.json do 
+				if @comment.update(comment_params)
+					redirect_to posts_path
+				else
+					redirect_to posts_path
+				end 
+			end 
+		end
 	end 
 
 	def destroy 

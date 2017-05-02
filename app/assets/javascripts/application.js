@@ -28,10 +28,10 @@ $(document).on('turbolinks:load', function(){
 
 	$('.comments_view').on('click', function(){
 		$(this).next().slideToggle();
-		if ($(this).value == 'Comments'){
-			$(this).html('Close');
+		if ($(this).text() == 'Comments'){
+			$(this).text('Close');
 		} else {
-			$(this).html('Create');
+			$(this).text('Comments');
 		}
 	});
 

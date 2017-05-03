@@ -5,11 +5,24 @@ var Comment = React.createClass({
 			created_at: this.props.comment.created_at
 		}
 	},
+	handleCommentDelete: function(){
+		var that = this;
+		$.ajax({
+			method: 'DELETE',
+			url: '/posts/' + that.state.comment.post_id + '/comments/' + that.state.comment.id + '.json',
+			success: function(res){
+				that.props.onDeleteComment(that.state.comment);
+			}
+		});
+	},
 	render: function(){
 		return (
 		<div>
+
 			<p>{this.state.comment.content}</p>
 			<p><i>{this.state.created_at}</i></p>
+			<button onClick={this.handleCommentDelete} className="btn btn-danger">Delete</button>
+			<br />
 			<br />
 		</div>
 		);

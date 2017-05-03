@@ -4,10 +4,11 @@ var Comments = React.createClass({
 			comments: this.props.post.comments,
 			comment: {
 				content: '',
-				author: ''
+				author: '',
+				post_id: this.props.post.id
 			}
 		}
-	},
+	}, 
 	handleContentChange: function(e){
 		var newComment = this.state.comment;
 		newComment.content = e.target.value;
@@ -15,32 +16,41 @@ var Comments = React.createClass({
 	},
 	handleCreateComment: function(){
 		var that = this; 
+		console.log(this.state, "Hello");
 		$.ajax({
 			method: 'POST',
 			data: { comment: this.state.comment },
-			url: 'comments.json',
+			url: 'posts/' + that.props.post.id + '/comments.json',
 			success: function(res){
 				var newCommentList = that.state.comments; 
 				newCommentList.push(res); 
-				that.setState({ comments: newCommentList });
+				that.setState({ 
+					comments: newCommentList,
+					comment: {
+						author: '',
+						content: ''
+					} 
+				});
 			}
 		});
 	},
 	render: function() {
-		var commentBoard = this.props.post.comments ? this.props.post.comments.map(function(comment){
+		var that = this; 
+		var commentBoard = that.state.comments ? that.state.comments.map(function(comment){
 				return (
 					<Comment comment={comment} key={comment.id} />
 				);
 			}):null;
 		return (
 			<div>
-			<button className="btn btn-primary comments_view">Comments</button>
-					<div className="comment_container">
+					<br />
+					<br />
+					<div className="">
 					
 							<div className='form-group'>
-								<input value={this.state.comment.contnet} onChange={this.handleContentChange} type='text' className='form-control' placeholder="Write a comment" />
+								<textarea value={this.state.comment.contnet} onChange={this.handleContentChange} type='text' className='form-control' placeholder="Write a comment" ></textarea>
 							</div>
-							<div class='form-group'>
+							<div className='form-group'>
 								<button type="button" onClick={this.handleCreateComment} className="btn btn-primary">Post</button>
 							</div>
 

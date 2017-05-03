@@ -1,15 +1,53 @@
 var Comments = React.createClass({
+	getInitialState: function(){
+		return {
+			comments: this.props.post.comments,
+			comment: {
+				content: '',
+				author: ''
+			}
+		}
+	},
+	handleContentChange: function(e){
+		var newComment = this.state.comment;
+		newComment.content = e.target.value;
+		this.setState({ comment: newComment });
+	},
+	handleCreateComment: function(){
+		var that = this; 
+		$.ajax({
+			method: 'POST',
+			data: { comment: this.state.comment },
+			url: 'comments.json',
+			success: function(res){
+				var newCommentList = that.state.comments; 
+				newCommentList.push(res); 
+				that.setState({ comments: newCommentList });
+			}
+		});
+	},
 	render: function() {
-		console.log(this.props.post); 
-
 		var commentBoard = this.props.post.comments ? this.props.post.comments.map(function(comment){
 				return (
 					<Comment comment={comment} key={comment.id} />
 				);
 			}):null;
 		return (
-			<div className="comment_container">
-				{ commentBoard }
+			<div>
+			<button className="btn btn-primary comments_view">Comments</button>
+					<div className="comment_container">
+					
+							<div className='form-group'>
+								<input value={this.state.comment.contnet} onChange={this.handleContentChange} type='text' className='form-control' placeholder="Write a comment" />
+							</div>
+							<div class='form-group'>
+								<button type="button" onClick={this.handleCreateComment} className="btn btn-primary">Post</button>
+							</div>
+
+						<br />
+						
+						{ commentBoard }
+					</div>
 			</div>
 		);
 	}

@@ -9,7 +9,7 @@
 		<% else %> 
 			<% @posts.each do |post| %> 
 				<div class="form_container post col-md-8 col-md-push-2">
-					<h3><%= link_to post.title, post_path(post) %></h3>
+					<h3><%= post.title %></h3>
 					<h4><%= post.author %></h4>
 					<p><%= post.content %></p>
 					<% if post.video? %>
@@ -18,20 +18,14 @@
 						</div>
 					<% end %> 
 					<br />
-					<button class="btn btn-primary comments_view">Comments</button>
+					<% if post.comments.count != 0 %>
+						<button class="btn btn-primary comments_view">Comments</button>
+					<% end %> 
 					<div class="comment_container">
-						<%= form_for [post, @comment] do |comment| %>
-							<div class='form-group'>
-								<%= comment.text_area :content, class: 'form-control' %>
-							</div>
-							<div class='form-group'>
-								<%= comment.submit 'Create', class: 'btn btn-primary' %>
-							</div>
-						<% end %> 
 						<br />
 						<% post.comments.order(created_at: :desc).each do |comment| %>
 							<p><%= comment.content %></p>
-							<p><%= time_ago_in_words(comment.created_at) %></p>
+							<p><i><%= time_ago_in_words(comment.created_at) %></i></p>
 							<br />
 						<% end %> 
 					</div>

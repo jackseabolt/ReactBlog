@@ -16,13 +16,14 @@ var Comments = React.createClass({
 	},
 	handleCreateComment: function(){
 		var that = this; 
-		console.log(this.state, "Hello");
+		console.log(this.state.comments, "Hello");
 		$.ajax({
 			method: 'POST',
 			data: { comment: that.state.comment },
 			url: 'posts/' + that.props.post.id + '/comments.json',
 			success: function(res){
-				var newCommentList = that.state.comments; 
+				var newCommentList = that.state.comments;
+				console.log(newCommentList, "This"); 
 				newCommentList.push(res); 
 				that.setState({ 
 					comments: newCommentList,

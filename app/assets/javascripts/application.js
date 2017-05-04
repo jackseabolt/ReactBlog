@@ -26,13 +26,26 @@
 
 $(document).on('turbolinks:load', function(){
 
-	$('.comments_view').on('click', function(){
-		$(this).next().slideToggle();
-		if ($(this).text() == 'Comments'){
-			$(this).text('Close');
-		} else {
-			$(this).text('Comments');
-		}
-	});
+	$(document).on('click', '.comments_view', function(){
+    $(this).next().slideToggle();
+    if ($(this).text() == 'Comments'){
+        $(this).text('Close');
+    } else {
+        $(this).text('Comments');
+    }
+});
 
 })
+
+
+
+
+
+// $('.comments_view').on('click', function(){
+	// 	$(this).next().slideToggle();
+	// 	if ($(this).text() == 'Comments'){
+	// 		$(this).text('Close');
+	// 	} else {
+	// 		$(this).text('Comments');
+	// 	}
+	// });

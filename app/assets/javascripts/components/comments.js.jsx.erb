@@ -1,15 +1,69 @@
 var Comments = React.createClass({
+	getInitialState: function(){
+		return {
+			comments: this.props.post.comments,
+			comment: {
+				content: '',
+				author: '',
+				post_id: this.props.post.id
+			}
+		}
+	}, 
+	handleContentChange: function(e){
+		var newComment = this.state.comment;
+		newComment.content = e.target.value;
+		this.setState({ comment: newComment });
+	},
+	handleCreateComment: function(){
+		var that = this; 
+		console.log(this.state, "Hello");
+		$.ajax({
+			method: 'POST',
+			data: { comment: this.state.comment },
+			url: 'posts/' + that.props.post.id + '/comments.json',
+			success: function(res){
+				var newCommentList = that.state.comments; 
+				newCommentList.push(res); 
+				that.setState({ 
+					comments: newCommentList,
+					comment: {
+						author: '',
+						content: ''
+					} 
+				});
+			}
+		});
+	},
+	handleDeleteComment(comment){
+	    var commentsList = this.state.comments.filter(function(item) {
+	      return comment.id !== item.id;
+	    });
+	    this.setState({comments: commentsList});
+  	},
 	render: function() {
-		console.log(this.props.post); 
-
-		var commentBoard = this.props.post.comments ? this.props.post.comments.map(function(comment){
+		var that = this; 
+		var commentBoard = that.state.comments ? that.state.comments.map(function(comment){
 				return (
-					<Comment comment={comment} key={comment.id} />
+					<Comment comment={comment} key={comment.id} onDeleteComment={this.handleDeleteComment} />
 				);
 			}):null;
 		return (
-			<div className="comment_container">
-				{ commentBoard }
+			<div>
+					<br />
+					<br />
+					<div className="">
+					
+							<div className='form-group'>
+								<textarea value={this.state.comment.contnet} onChange={this.handleContentChange} type='text' className='form-control' placeholder="Write a comment" ></textarea>
+							</div>
+							<div className='form-group'>
+								<button type="button" onClick={this.handleCreateComment} className="btn btn-primary">Post</button>
+							</div>
+
+						<br />
+						
+						{ commentBoard }
+					</div>
 			</div>
 		);
 	}

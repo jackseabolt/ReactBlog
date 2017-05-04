@@ -29,10 +29,8 @@ class CommentsController < ApplicationController
 	def destroy 
 		@comment = Comment.find(params[:id])
 		@comment.destroy
-		if @comment.destroy
-			redirect_to posts_path
-		else
-			render posts_path
+		respond_to do |format|
+			format.json { render :json => {}, :status => :no_content }
 		end 
 	end 
 

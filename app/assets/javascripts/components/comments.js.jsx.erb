@@ -19,7 +19,7 @@ var Comments = React.createClass({
 		console.log(this.state, "Hello");
 		$.ajax({
 			method: 'POST',
-			data: { comment: this.state.comment },
+			data: { comment: that.state.comment },
 			url: 'posts/' + that.props.post.id + '/comments.json',
 			success: function(res){
 				var newCommentList = that.state.comments; 
@@ -28,7 +28,8 @@ var Comments = React.createClass({
 					comments: newCommentList,
 					comment: {
 						author: '',
-						content: ''
+						content: '',
+						post_id: that.props.post.id
 					} 
 				});
 			}

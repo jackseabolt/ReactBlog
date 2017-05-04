@@ -18,9 +18,7 @@ class CommentsController < ApplicationController
 		respond_to do |format|
 			format.json do 
 				if @comment.update(comment_params)
-					redirect_to posts_path
-				else
-					redirect_to posts_path
+					render :json => @comment
 				end 
 			end 
 		end

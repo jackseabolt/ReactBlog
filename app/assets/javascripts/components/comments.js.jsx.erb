@@ -16,33 +16,39 @@ var Comments = React.createClass({
 	},
 	handleCreateComment: function(){
 		var that = this; 
-		console.log(this.state, "Hello");
+		
 		$.ajax({
 			method: 'POST',
-			data: { comment: this.state.comment },
+			data: { comment: that.state.comment },
 			url: 'posts/' + that.props.post.id + '/comments.json',
 			success: function(res){
-				var newCommentList = that.state.comments; 
+				var newCommentList = that.state.comments;
+				if ("undefined" === typeof newCommentList){
+					that.setState({ comments: that.state.comment }); 
+				}
+				var newCommentList = that.state.comments;
+				console.log(newCommentList, "This is the list"); 
 				newCommentList.push(res); 
 				that.setState({ 
 					comments: newCommentList,
 					comment: {
 						author: '',
-						content: ''
+						content: '',
+						post_id: that.props.post.id
 					} 
 				});
 			}
 		});
 	},
 	handleDeleteComment(comment){
-	    var commentsList = this.state.comments.filter(function(item) {
-	      return comment.id !== item.id;
-	    });
-	    this.setState({comments: commentsList});
+		var commentsList = this.state.comments.filter(function(item) {
+			return comment.id !== item.id;
+		});
+		this.setState({comments: commentsList});
   	},
 	render: function() {
 		var that = this; 
-		var commentBoard = that.state.comments ? that.state.comments.map(function(comment){
+			var commentBoard = that.state.comments ? that.state.comments.map(function(comment){
 				return (
 					<Comment comment={comment} key={comment.id} onDeleteComment={that.handleDeleteComment} />
 				);

@@ -1,7 +1,7 @@
 var Post = React.createClass({
 	getInitialState: function(){
 		return {
-		    post: this.props.post, 
+		    post: this.props.post,
 		    editMode: false
 		}
 	},
@@ -92,7 +92,9 @@ var Post = React.createClass({
 					<button className="btn btn-danger spacer pull-right" onClick={this.handlePostDelete}>Delete</button>
 					<button className="btn btn-primary pull-right" onClick={this.setEditMode}>Edit</button>
 					<button className="btn btn-primary comments_view">Comments</button>
-					<Comments post={this.state.post} key={this.state.post.id} />
+					<div className="comment_container">
+						<Comments post={this.state.post} key={this.state.post.id} />
+					</div>
 				</div>
 			</div>
 			); 

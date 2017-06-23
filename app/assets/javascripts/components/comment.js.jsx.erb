@@ -2,8 +2,31 @@ var Comment = React.createClass({
 	getInitialState: function(){
 		return {
 			comment: this.props.comment,
-			created_at: this.props.comment.created_at
+			created_at: this.props.comment.created_at,
+			editMode: false
 		}
+	},
+	setEditMode: function(){
+		this.setState({ editMode: true });
+	},
+	handleEditComment: function(e){
+		var newComment = this.state.comment;
+		newComment.content = e.target.value;
+		this.setState({ comment: newComment });
+	},
+	handleUpdateComment: function(){
+		var that = this; 
+		$.ajax({
+			method: 'PUT',
+			url: '/posts/' + that.state.comment.post_id + '/comments/' + that.state.comment.id +'.json',
+			data: { comment: that.state.comment },
+			success: function(res){
+				that.setState({
+					comment: res,
+					editMode: false
+				})
+			}
+		});
 	},
 	handleCommentDelete: function(){
 		var that = this;
@@ -16,15 +39,30 @@ var Comment = React.createClass({
 		});
 	},
 	render: function(){
-		return (
-		<div>
+		if ( this.state.editMode ){
 
-			<p>{this.state.comment.content}</p>
-			<p><i>{this.state.created_at}</i></p>
-			<button onClick={this.handleCommentDelete} className="btn btn-danger">Delete</button>
-			<br />
-			<br />
-		</div>
-		);
+			return (
+			<div>
+				<div className="form-group">
+					<textarea onChange={this.handleEditComment} value={this.state.comment.content} className="form-control"></textarea>
+				</div>
+				<div className="form-group">
+					<button onClick={this.handleUpdateComment} className="btn btn-primary">Update</button>
+				</div>
+			</div>
+			
+			);
+		} else {
+			return (
+			<div>
+				<p>{this.state.comment.content}</p>
+				<p><i>{this.state.created_at}</i></p>
+				<button onClick={this.handleCommentDelete} className="btn btn-danger">Delete</button>
+				<button onClick={this.setEditMode} className="btn btn-primary spacer">Edit</button>
+				<br />
+				<br />
+			</div>
+			);
+		}
 	}
 });

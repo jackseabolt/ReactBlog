@@ -4,6 +4,7 @@
 			<br />
 		</div>
 		<% if user_signed_in? %> 
+
 			<% posts_json = Post.includes(:comments).map { |post| post.as_json.merge({comments: post.comments.as_json}) } %>
 			<%= react_component( "Posts", { posts: posts_json }) %> 
 		<% else %> 
@@ -12,6 +13,7 @@
 					<h3><%= post.title %></h3>
 					<h4><%= post.author %></h4>
 					<p><%= post.content %></p>
+					
 					<% if post.video? %>
 						<div class="embed-responsive embed-responsive-16by9 video">
 		  					<iframe class="embed-responsive-item" src="<%= post.video %>"></iframe>
@@ -22,6 +24,12 @@
 						<button class="btn btn-primary comments_view">Comments</button>
 					<% end %> 
 					<div class="comment_container">
+						<div class="form-group">
+							<textarea class="form-control" placeholder="Write a comment"></textarea>
+						</div>
+						<div class="form-group">
+							<%= link_to "Post", new_user_session_path, class:"btn btn-primary" %>
+						</div>
 						<br />
 						<% post.comments.order(created_at: :desc).each do |comment| %>
 							<p><%= comment.content %></p>
@@ -33,4 +41,25 @@
 			<% end %> 
 		<% end %>
 	</div>
+</div>
+
+
+<div class="modal fade" id="exampleModal" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
